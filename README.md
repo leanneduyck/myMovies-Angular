@@ -28,27 +28,52 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 Setup Instructions:
 
-1. Prepare Angular
-   a. Install Angular by running: npm install -g @angular/cli
-   b. Make sure Node is up to date by running: nvm install node
-2. Create a new project
-   a. Run: ng new [project-name] —no-standalone
-   b. Answer 'yes' to all, select SCSS
-   c. CD to project folder and run the app by running: ng serve --open
-3. Configure Angular HttpClient
-   a. Inside src/app/app.module.ts, add "import { HttpClientModule } from '@angular/common/http';" ; also add "HttpClientModule," to @NgModule import section
-4. Create Angular Service for REST API
-   a. Run: ng generate service fetch-api-data
-   b. Inside src/app/fetch-api-data.service.ts, add "HttpClient, HttpHeaders, HttpErrorResponse, Observable, RxJS, and RxJS Operators" to import statements
+Prepare Angular
+
+1.  Install Angular by running: npm install -g @angular/cli
+2.  Make sure Node is up to date by running: nvm install node
+
+Create a new project
+
+1.  Run: ng new [project-name] —no-standalone
+2.  Answer 'yes' to all, select SCSS
+3.  CD to project folder and run the app by running: ng serve --open
+
+Configure Angular HttpClient
+
+1.  Inside src/app/app.module.ts, add "import { HttpClientModule } from '@angular/common/http';" ; also add "HttpClientModule," to @NgModule import section
+
+Create Angular Service for REST API
+
+1.  Run: ng generate service fetch-api-data
+2.  Inside src/app/fetch-api-data.service.ts, add "HttpClient, HttpHeaders, HttpErrorResponse, Observable, RxJS, and RxJS Operators" to import statements
+
+Material Design
+
+1. Add Angular Material by running: ng add @angular/material
+   a. Custom theme, yes typography/broswer animations
+   b. Inside src/app/app.modules.ts, add necessary modultes from @angular/material; also add to @NgModule import section
+
+Create Registration Component
+
+1. Run: ng generate component user-registration-form
+   a. Link to the service and root component
+2. Cont similiarly for other views.
+
+Run app
+
+1. ng serve
 
 Github: To create new repo:
-From project directory in terminal run: git init
-Run git commit -m "first commit"
-Run git branch -M main
-From GH page, go through process of adding new repo, then use https it gives and run: git remote add origin https://github.com/leanneduyck/chat.git
-git push -u origin main
+
+1. From project directory in terminal run: git init
+   2.Run git commit -m "first commit"
+2. Run git branch -M main
+3. From GH page, go through process of adding new repo, then use https it gives and run: 5. git remote add origin https://github.com/leanneduyck/chat.git
+4. git push -u origin main
 
 To push:
-Run: git add .
-Run: git commit -m "Your commit message"
-Run: git push
+
+1. Run: git add .
+2. Run: git commit -m "Your commit message"
+3. Run: git push

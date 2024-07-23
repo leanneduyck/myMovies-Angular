@@ -13,19 +13,33 @@ const apiUrl = 'YOUR_HOSTED_API_URL_HERE/';
 @Injectable({
   providedIn: 'root',
 })
-export class UserRegistrationService {
+// I changed this from 'UserRegistrationService' to 'FetchApiDataService' because I was getting errors
+export class FetchApiDataService {
+  // adding my actual API url
+  apiUrl = 'https://my---movies-868565568c2a.herokuapp.com';
   // Inject the HttpClient module to the constructor params
   // This will provide HttpClient to the entire class, making it available via this.http
   constructor(private http: HttpClient) {}
 
-  // endpoint: /users, registers a new user
-  // userDetails can be any type
+  // endpoint: /users/create, registers a new user
+  // trying this route logic
   public userRegistration(userDetails: any): Observable<any> {
     console.log(userDetails);
-    // uses POST method to make an API call
     return this.http
-      .post(apiUrl + 'users', userDetails)
-      .pipe(catchError(this.handleError));
+      .post(`${this.apiUrl}/users/create`, userDetails, {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          // adds user to local storage
+          Authorization: 'Bearer ' + localStorage.getItem('token'),
+        }),
+      })
+      .pipe(
+        map((response) => {
+          console.log('Registration successful, response:', response);
+          return response;
+        }),
+        catchError(this.handleError)
+      );
   }
 
   // endpoint: /login, authenticates user
@@ -34,7 +48,11 @@ export class UserRegistrationService {
     return (
       this.http
         // uses POST method to make an API call
-        .post(apiUrl + 'login', userDetails)
+        .post(`${this.apiUrl}/login`, userDetails, {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+          }),
+        })
         .pipe(catchError(this.handleError))
     );
   }
@@ -47,7 +65,7 @@ export class UserRegistrationService {
     return (
       this.http
         // uses GET method to make an API call, includes token in header
-        .get(apiUrl + 'movies', {
+        .get(`${this.apiUrl}/movies`, {
           headers: new HttpHeaders({
             Authorization: 'Bearer ' + token,
           }),
@@ -104,7 +122,7 @@ export class UserRegistrationService {
     );
   }
 
-  // endpoint: /users/:username, returns profileView to logged-in users
+  // endpoint: /users/:username, returns profileView to logged-in user
   // username is a string, observable can be of any type
   public getUser(username: string): Observable<any> {
     const token = localStorage.getItem('token');
@@ -112,6 +130,8 @@ export class UserRegistrationService {
       this.http
         // uses GET method to make an API call, includes token in header
         .get(apiUrl + `users/${username}`, {
+          // below is route from React myMovies, might use similar here
+          // fetch(`https://my---movies-868565568c2a.herokuapp.com/users`, {
           headers: new HttpHeaders({
             Authorization: 'Bearer ' + token,
           }),
@@ -130,6 +150,9 @@ export class UserRegistrationService {
       this.http
         // uses POST method to make an API call, includes token in header
         .post(apiUrl + `users/${username}/movies/${movieId}`, movieId, {
+          // below is route from React myMovies, might use similar here
+          // `https://my---movies-868565568c2a.herokuapp.com/users/${parsedUser.Username}/movies/${movie?.id}`,
+
           headers: new HttpHeaders({
             Authorization: 'Bearer ' + token,
           }),
@@ -148,6 +171,8 @@ export class UserRegistrationService {
       this.http
         // uses DELETE method to make an API call, includes token in header
         .delete(apiUrl + `users/${username}/movies/${movieId}`, {
+          // below is route from React myMovies, might use similar here
+          // `https://my---movies-868565568c2a.herokuapp.com/users/${parsedUser.Username}/movies/${movie?.id}`,
           headers: new HttpHeaders({
             Authorization: 'Bearer ' + token,
           }),
@@ -166,6 +191,9 @@ export class UserRegistrationService {
       this.http
         // uses PUT method to make an API call, includes token in header
         .put(apiUrl + `users/${username}`, userDetails, {
+          // below is route from React myMovies, might use similar here
+          // `https://my---movies-868565568c2a.herokuapp.com/users/${user.Username}`,
+
           headers: new HttpHeaders({
             Authorization: 'Bearer ' + token,
           }),
@@ -184,6 +212,9 @@ export class UserRegistrationService {
       this.http
         // uses DELETE method to make an API call, includes token in header
         .delete(apiUrl + `users/${username}`, {
+          // below is route from React myMovies, might use similar here
+          // `https://my---movies-868565568c2a.herokuapp.com/users/${user.Username}`,
+
           headers: new HttpHeaders({
             Authorization: 'Bearer ' + token,
           }),
@@ -200,10 +231,11 @@ export class UserRegistrationService {
   // Error handling
   private handleError(error: HttpErrorResponse): any {
     if (error.error instanceof ErrorEvent) {
-      console.error('Some error occurred:', error.error.message);
+      console.error('An error occurred:', error.error.message);
     } else {
       console.error(
-        `Error Status code ${error.status}, ` + `Error body is: ${error.error}`
+        `Backend returned code ${error.status}, ` +
+          `body was: ${JSON.stringify(error.error)}`
       );
     }
     return throwError('Something bad happened; please try again later.');
