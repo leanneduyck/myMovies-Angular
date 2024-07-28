@@ -1,0 +1,39 @@
+<div
+  style="
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  "
+>
+  <h1>Welcome to myFlix!</h1>
+  <div
+    style="
+      display: flex;
+      gap: 20px;
+      width: 100%;
+      max-width: 600px;
+      justify-content: center;
+      padding: 20px;
+    "
+  >
+    <!-- button for sign up -->
+    <button
+      mat-raised-button
+      (click)="openUserRegistrationDialog()"
+      color="primary"
+      style="padding: 20px; flex: 1; min-width: 120px"
+    >
+      Sign Up
+    </button>
+    <!-- button for login -->
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="openUserLoginDialog()"
+      style="padding: 20px; flex: 1; min-width: 120px"
+    >
+      Login
+    </button>
+  </div>
+</div>
