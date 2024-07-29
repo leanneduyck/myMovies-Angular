@@ -103,16 +103,7 @@ export class ProfileComponent implements OnInit {
       if (user.Username) {
         this.fetchApiData.deleteUser(user.Username).subscribe(
           (response) => {},
-          (error) => {
-            // console.error('Error deleting account:', error);
-            // this.snackBar.open(
-            //   'Something went wrong. Please try again.',
-            //   'OK',
-            //   {
-            //     duration: 2000,
-            //   }
-            // );
-          }
+          (error) => {}
         );
         localStorage.clear();
         localStorage.removeItem('user');

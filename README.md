@@ -12,7 +12,7 @@ Key Features:
    d. A favorite icon that when activated/deactivated adds/removes movies from the user's favorites list.
 4. Profile view where users can update user data or delete the account.
 
-Website:
+Website: https://my-movies-angular.vercel.app/
 
 Data Source: This app pulls data from a MongoDB Atlas database that I created.
 Server-side Website: https://my---movies-868565568c2a.herokuapp.com/

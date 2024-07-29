@@ -68,13 +68,6 @@ export class MovieCardComponent {
     }
   }
 
-  // not sure if I need this?
-  // This method checks if the movie is in the user's list of favorites
-  // checkIfFavorite(): void {
-  //   const user = JSON.parse(localStorage.getItem('user') || '{}');
-  //   this.isFavorite = user.FavoriteMovies.includes(this.movie._id);
-  // }
-
   // This method toggles the favorite status of a movie
   toggleFavoriteStatus(movie: any): void {
     const isFavorite = this.determineIfFavorited(movie);
