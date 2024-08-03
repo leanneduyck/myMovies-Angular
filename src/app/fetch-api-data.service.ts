@@ -160,7 +160,7 @@ export class FetchApiDataService {
    * @param movieId
    * @returns Observable with response from API
    */
-  public addToFavorites(movieId: string) {
+  public addToFavorites(movieId: string): Observable<any> {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     const token = localStorage.getItem('token');
     return this.http
@@ -179,7 +179,7 @@ export class FetchApiDataService {
    * @param movieId
    * @returns Observable with response from API
    */
-  public removeFromFavorites(movieId: string) {
+  public removeFromFavorites(movieId: string): Observable<any> {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     const token = localStorage.getItem('token');
     return this.http
@@ -198,7 +198,7 @@ export class FetchApiDataService {
    * @param userData
    * @returns Observable with response from API
    */
-  public editUserProfile(userData: User) {
+  public editUserProfile(userData: User): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http
       .put(`${this.apiUrl}/users/${userData.Username}`, userData, {
@@ -216,7 +216,7 @@ export class FetchApiDataService {
    * @param Username
    * @returns Observable with response from API
    */
-  public deleteUser(Username: string) {
+  public deleteUser(Username: string): Observable<any> {
     const token = localStorage.getItem('token');
     console.log({ Username, token });
     return this.http.delete(`${this.apiUrl}/users/${Username}`, {
