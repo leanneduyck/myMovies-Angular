@@ -12,7 +12,7 @@ import { catchError, map } from 'rxjs/operators';
  */
 
 // Declaring the API URL that will provide data for the client app
-const apiUrl = 'http://localhost:8080';
+const apiUrl = 'https://my---movies-868565568c2a.herokuapp.com';
 
 // Types for API requests and responses
 type User = {
@@ -62,7 +62,7 @@ type Genre = {
   providedIn: 'root',
 })
 export class FetchApiDataService {
-  apiUrl = 'http://localhost:8080';
+  apiUrl = 'https://my---movies-868565568c2a.herokuapp.com';
 
   // Inject the HttpClient module to the constructor params
   // This will provide HttpClient to the entire class, making it available via this.http
