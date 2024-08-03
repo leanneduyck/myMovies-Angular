@@ -174,6 +174,23 @@ export class FetchApiDataService {
       .pipe(catchError(this.handleError));
   }
 
+  // get user profile
+  // endpoint: /users/:username
+  /**
+   * gets user profile
+   * @returns Observable with user profile data
+   */
+  public getUser(username: string): Observable<any> {
+    const token = localStorage.getItem('token');
+    return this.http
+      .get(`${this.apiUrl}/users/${username}`, {
+        headers: new HttpHeaders({
+          Authorization: 'Bearer ' + token,
+        }),
+      })
+      .pipe(map(this.extractResponseData), catchError(this.handleError));
+  }
+
   // logic for editing user profile
   // endpoint: /users/:username, allows users to edit profileView
   /**
