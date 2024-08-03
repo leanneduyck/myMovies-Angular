@@ -15,7 +15,7 @@ Key Features:
 Website: https://my-movies-angular.vercel.app/
 
 Data Source: This app pulls data from a MongoDB Atlas database that I created.
-Server-side Website: https://my---movies-868565568c2a.herokuapp.com/
+Server-side Website: http://localhost:8080/
 Server-side Repo: https://github.com/leanneduyck/MyMovies-Client.git
 
 Technologies Used:
@@ -85,6 +85,15 @@ To deploy in GH:
 
 1. Run: ng deploy --base-href=/<repository-name>/
 2. Or use Vercel...
+
+Documentation:
+
+1. Comment all TypeScript code so that TypeDoc can generate documentation
+2. Install TypeDoc by running: npm install typedoc --save-dev
+3. Create a typedoc.json file, see my file for specifics
+4. Update tsconfig.json for entry/exit points, see my file for specifics
+5. To generate documentation, run: typedoc --out docs src/main.ts
+6. If that doesn't work, run: npx typedoc --out docs src/main.ts
 
 # MyMoviesAngular
 

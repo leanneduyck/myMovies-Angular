@@ -5,6 +5,10 @@ import { FetchApiDataService } from '../fetch-api-data.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+/**
+ * renders user login form
+ */
+
 @Component({
   selector: 'app-user-login-form',
   templateUrl: './user-login-form.component.html',
@@ -13,6 +17,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class UserLoginFormComponent implements OnInit {
   loginForm: FormGroup;
 
+  /**
+   * creates user login form
+   * @param fb
+   * @param dialogRef
+   * @param fetchApiData
+   * @param snackBar
+   * @param router
+   */
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<UserLoginFormComponent>,
@@ -41,9 +53,12 @@ export class UserLoginFormComponent implements OnInit {
       this.fetchApiData.userLogin(userData).subscribe(
         (response) => {
           console.log('Response:', response);
-          if (response.user) {
-            localStorage.setItem('user', JSON.stringify(response.user));
-            localStorage.setItem('token', response.token);
+          // removed .user from response as updating fetchAPI based on tutor code
+          if (response) {
+            // removed .user from response as updating fetchAPI based on tutor code
+            localStorage.setItem('user', JSON.stringify(response));
+            // commenting out for now, throwing errors with tutor code
+            // localStorage.setItem('token', response.token);
             this.snackBar.open('Login successful!', 'OK', {
               duration: 2000,
             });

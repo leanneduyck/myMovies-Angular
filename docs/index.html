@@ -1,0 +1,101 @@
+<!DOCTYPE html><html class="default" lang="en"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>Your Project Name - v0.0.0</title><meta name="description" content="Documentation for Your Project Name"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script defer src="assets/main.js"></script><script async src="assets/icons.js" id="tsd-icons-script"></script><script async src="assets/search.js" id="tsd-search-script"></script><script async src="assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><div class="table-cell" id="tsd-search" data-base="."><div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><use href="assets/icons.svg#icon-search"></use></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div><div class="field"><div id="tsd-toolbar-links"></div></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">Your Project Name - v0.0.0</a></div><div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><use href="assets/icons.svg#icon-menu"></use></svg></a></div></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><h2>Your Project Name - v0.0.0</h2></div><div class="tsd-panel tsd-typography"><p>Overview:
+This is a single-page, responsive movie app built using Angular. It is the client-side for the server-side API developed earlier for MyMovies-Server. This app supports user authentication, viewing all movies, detailed views for individual movies/directors/genres, and the ability to manage user profiles. Users can also mark movies as favorites. UI is handled with Material Design (Angular Material). As per project requirements, the user scrolls through movies sideways; similar to Netflix.</p>
+<p>Key Features:</p>
+<ol>
+<li>Displays a welcome view where users are able to either log in or register an account.</li>
+<li>Once authenticated, users should view all movies.</li>
+<li>Upon clicking on a particular movie, users will be taken to a single movie view where additional movie details are displayed. The single movie view has the additional features:
+a. A button that takes the user to the director view where details about that movie's director are displayed.
+b. A button that takes the user to the genre view where details about that movie's genre are displayed.
+c. A button that takes the user to the description view where details about that movie's plotline and rating and release are displayed.
+d. A favorite icon that when activated/deactivated adds/removes movies from the user's favorites list.</li>
+<li>Profile view where users can update user data or delete the account.</li>
+</ol>
+<p>Website: <a href="https://my-movies-angular.vercel.app/">https://my-movies-angular.vercel.app/</a></p>
+<p>Data Source: This app pulls data from a MongoDB Atlas database that I created.
+Server-side Website: <a href="http://localhost:8080/">http://localhost:8080/</a>
+Server-side Repo: <a href="https://github.com/leanneduyck/MyMovies-Client.git">https://github.com/leanneduyck/MyMovies-Client.git</a></p>
+<p>Technologies Used:</p>
+<ol>
+<li>Angular: The core framework used for building the single-page application; the powerful features and tools help in creating a robust and maintainable codebase.</li>
+<li>Angular Material: A UI component library that provides pre-built, customizable components following Google's Material Design guidelines, ensuring a consistent and visually appealing interface.</li>
+<li>TypeScript: The primary programming language used in Angular development, offering static typing and advanced features for better code quality and maintainability.</li>
+<li>RxJS: A library for reactive programming used extensively in Angular for managing asynchronous data streams and events.</li>
+<li>Node.js &amp; npm: Node.js provides the runtime environment for the development tools, while npm is used for managing project dependencies and scripts.</li>
+<li>MyMovies-Server RESTful API: My existing custom-built server-side API developed earlier, providing endpoints for movie data, user authentication, and profile management.</li>
+<li>Express: A minimal and flexible Node.js web application framework used for building the server-side API.</li>
+<li>Angular CLI: A command-line interface tool that helps in initializing, developing, scaffolding, and maintaining Angular applications.</li>
+</ol>
+<p>Setup Instructions:</p>
+<p>Prepare Angular</p>
+<ol>
+<li>Install Angular by running: npm install -g @angular/cli</li>
+<li>Make sure Node is up to date by running: nvm install node</li>
+</ol>
+<p>Create a new project</p>
+<ol>
+<li>Run: ng new [project-name] —no-standalone</li>
+<li>Answer 'yes' to all, select SCSS</li>
+<li>CD to project folder and run the app by running: ng serve --open</li>
+</ol>
+<p>Configure Angular HttpClient</p>
+<ol>
+<li>Inside src/app/app.module.ts, add &quot;import { HttpClientModule } from '@angular/common/http';&quot; ; also add &quot;HttpClientModule,&quot; to @NgModule import section</li>
+</ol>
+<p>Create Angular Service for REST API</p>
+<ol>
+<li>Run: ng generate service fetch-api-data</li>
+<li>Inside src/app/fetch-api-data.service.ts, add &quot;HttpClient, HttpHeaders, HttpErrorResponse, Observable, RxJS, and RxJS Operators&quot; to import statements</li>
+</ol>
+<p>Material Design</p>
+<ol>
+<li>Add Angular Material by running: ng add @angular/material
+a. Custom theme, yes typography/broswer animations
+b. Inside src/app/app.modules.ts, add necessary modultes from @angular/material; also add to @NgModule import section</li>
+</ol>
+<p>Create Registration Component</p>
+<ol>
+<li>Run: ng generate component user-registration-form
+a. Link to the service and root component</li>
+<li>Cont similiarly for other views.</li>
+</ol>
+<p>Run app</p>
+<ol>
+<li>ng serve</li>
+</ol>
+<p>Github: To create new repo:</p>
+<ol>
+<li>From project directory in terminal run: git init
+2.Run git commit -m &quot;first commit&quot;</li>
+<li>Run git branch -M main</li>
+<li>From GH page, go through process of adding new repo, then use https it gives and run: 5. git remote add origin <a href="https://github.com/leanneduyck/">https://github.com/leanneduyck/</a><repository-name>.git</li>
+<li>git push -u origin main</li>
+</ol>
+<p>To push:</p>
+<ol>
+<li>Run: git add .</li>
+<li>Run: git commit -m &quot;Your commit message&quot;</li>
+<li>Run: git push</li>
+</ol>
+<p>To deploy in GH:</p>
+<ol>
+<li>Run: ng deploy --base-href=/<repository-name>/</li>
+<li>Or use Vercel...</li>
+</ol>
+<p>Documentation:</p>
+<ol>
+<li>Comment all TypeScript code so that TypeDoc can generate documentation</li>
+<li>Install TypeDoc by running: npm install typedoc --save-dev</li>
+<li>Create a typedoc.json file, see my file for specifics</li>
+<li>Update tsconfig.json for entry/exit points, see my file for specifics</li>
+<li>To generate documentation, run: typedoc --out docs src/main.ts</li>
+<li>If that doesn't work, run: npx typedoc --out docs src/main.ts</li>
+</ol>
+<a id="md:mymoviesangular" class="tsd-anchor"></a><h1 class="tsd-anchor-link">MyMoviesAngular<a href="#md:mymoviesangular" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h1><p>This project was generated with <a href="https://github.com/angular/angular-cli">Angular CLI</a> version 18.1.1.</p>
+<a id="md:development-server" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Development server<a href="#md:development-server" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>Run <code>ng serve</code> for a dev server. Navigate to <code>http://localhost:4200/</code>. The application will automatically reload if you change any of the source files.</p>
+<a id="md:code-scaffolding" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Code scaffolding<a href="#md:code-scaffolding" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>Run <code>ng generate component component-name</code> to generate a new component. You can also use <code>ng generate directive|pipe|service|class|guard|interface|enum|module</code>.</p>
+<a id="md:build" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Build<a href="#md:build" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>Run <code>ng build</code> to build the project. The build artifacts will be stored in the <code>dist/</code> directory.</p>
+<a id="md:running-unit-tests" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Running unit tests<a href="#md:running-unit-tests" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>Run <code>ng test</code> to execute the unit tests via <a href="https://karma-runner.github.io">Karma</a>.</p>
+<a id="md:running-end-to-end-tests" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Running end-to-end tests<a href="#md:running-end-to-end-tests" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>Run <code>ng e2e</code> to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.</p>
+<a id="md:further-help" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Further help<a href="#md:further-help" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>To get more help on the Angular CLI use <code>ng help</code> or go check out the <a href="https://angular.dev/tools/cli">Angular CLI Overview and Command Reference</a> page.</p>
+</div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="assets/icons.svg#icon-chevronDown"></use></svg>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-private" name="private"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Private</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="assets/icons.svg#icon-chevronDown"></use></svg>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#md:mymoviesangular"><span>My<wbr/>Movies<wbr/>Angular</span></a><ul><li><a href="#md:development-server"><span>Development server</span></a></li><li><a href="#md:code-scaffolding"><span>Code scaffolding</span></a></li><li><a href="#md:build"><span>Build</span></a></li><li><a href="#md:running-unit-tests"><span>Running unit tests</span></a></li><li><a href="#md:running-end-to-end-tests"><span>Running end-<wbr/>to-<wbr/>end tests</span></a></li><li><a href="#md:further-help"><span>Further help</span></a></li></ul></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="modules.html" class="current"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="assets/icons.svg#icon-1"></use></svg><span>Your Project Name - v0.0.0</span></a><ul class="tsd-small-nested-navigation" id="tsd-nav-container" data-base="."><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div></body></html>

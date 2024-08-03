@@ -7,6 +7,10 @@ import { UserRegistrationFormComponent } from './user-registration-form/user-reg
 import { UserLoginFormComponent } from './user-login-form/user-login-form.component';
 import { ProfileComponent } from './profile/profile.component';
 
+/**
+ * defines routes for the app
+ */
+
 const routes: Routes = [];
 
 const appRoutes: Routes = [

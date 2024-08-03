@@ -4,6 +4,10 @@ import { FetchApiDataService } from '../fetch-api-data.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
+/**
+ * component renders profile view, allows user to update profile and delete account
+ */
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -12,6 +16,13 @@ import { Router } from '@angular/router';
 export class ProfileComponent implements OnInit {
   profileForm: FormGroup;
 
+  /**
+   * creates profile component
+   * @param fb
+   * @param fetchApiData
+   * @param snackBar
+   * @param router
+   */
   constructor(
     private fb: FormBuilder,
     private fetchApiData: FetchApiDataService,
@@ -54,7 +65,8 @@ export class ProfileComponent implements OnInit {
         Birthday: this.profileForm.value.birthday,
       };
       console.log('Submitting user data: ', userData);
-      this.fetchApiData.editUserProfile(userData).subscribe(
+      // added .Username here as updating fetchAPI based on tutor code
+      this.fetchApiData.editUserProfile(userData.Username).subscribe(
         (response) => {
           if (response) {
             console.log('API response: ', response);
