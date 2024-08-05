@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FetchApiDataService } from '../fetch-api-data.service';
+import {FetchApiDataService, User} from '../fetch-api-data.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
@@ -32,30 +32,35 @@ export class ProfileComponent implements OnInit {
 
   // This method loads the user's data into the form
   loadUserData(): void {
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    console.log({ user });
-    if (user) {
-      this.profileForm.patchValue({
-        username: user.Username,
-        password: '',
-        email: user.Email,
-        birthday: user.Birthday,
-      });
-    }
+    const userFromLocalStorage = localStorage.getItem('user')
+    if(userFromLocalStorage) {
+      const user = JSON.parse(userFromLocalStorage) as User;
+      console.log({ user });
+        this.profileForm.patchValue({
+          _id: user._id,
+          username: user.Username,
+          password: '',
+          email: user.Email,
+          birthday: user.Birthday,
+          FavoriteMovies: user.FavoriteMovies,
+        });
+      }
   }
 
   // This method updates the user's profile
   onSubmit(): void {
     if (this.profileForm.valid) {
-      const userData = {
+      const userData: User = {
+        _id: this.profileForm.value._id,
         Username: this.profileForm.value.username,
         Password: this.profileForm.value.password,
         Email: this.profileForm.value.email,
         Birthday: this.profileForm.value.birthday,
+        FavoriteMovies: this.profileForm.value.FavoriteMovies
       };
       console.log('Submitting user data: ', userData);
-      this.fetchApiData.editUserProfile(userData).subscribe(
-        (response) => {
+      this.fetchApiData.editUserProfile(userData).subscribe({
+        next: (response) => {
           if (response) {
             console.log('API response: ', response);
             localStorage.setItem('user', JSON.stringify(response));
@@ -73,7 +78,7 @@ export class ProfileComponent implements OnInit {
             );
           }
         },
-        (error) => {
+        error: (error) => {
           console.error('API error: ', error);
           const errorMessage =
             error?.error?.errors?.[0]?.msg ||
@@ -87,7 +92,7 @@ export class ProfileComponent implements OnInit {
             }
           );
         }
-      );
+      });
     }
   }
 
@@ -101,10 +106,10 @@ export class ProfileComponent implements OnInit {
       const user = JSON.parse(localStorage.getItem('user') || '{}');
 
       if (user.Username) {
-        this.fetchApiData.deleteUser(user.Username).subscribe(
-          (response) => {},
-          (error) => {}
-        );
+        this.fetchApiData.deleteUser(user.Username).subscribe({
+          next:() => {},
+          error:() => {}
+      });
         localStorage.clear();
         localStorage.removeItem('user');
         localStorage.removeItem('token');

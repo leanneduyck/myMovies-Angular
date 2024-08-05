@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { FetchApiDataService } from '../fetch-api-data.service';
-import { GenreDialogComponent } from '../genre-dialog/genre-dialog.component';
-import { DirectorDialogComponent } from '../director-dialog/director-dialog.component';
-import { MovieDetailsDialogComponent } from '../movie-details-dialog/movie-details-dialog.component';
+import {Component, Input} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {FetchApiDataService, MovieWithFavorite} from '../fetch-api-data.service';
+import {GenreDialogComponent} from '../genre-dialog/genre-dialog.component';
+import {DirectorDialogComponent} from '../director-dialog/director-dialog.component';
+import {MovieDetailsDialogComponent} from '../movie-details-dialog/movie-details-dialog.component';
 
 @Component({
   selector: 'app-movie-card',
@@ -14,7 +14,7 @@ import { MovieDetailsDialogComponent } from '../movie-details-dialog/movie-detai
 export class MovieCardComponent {
   @Input() movie: any;
   @Input() isFavorite: boolean = false;
-  movies: any[] = [];
+  movies: MovieWithFavorite[] = [];
 
   constructor(
     public fetchApiData: FetchApiDataService,
@@ -31,8 +31,7 @@ export class MovieCardComponent {
     this.fetchApiData.getAllMovies().subscribe((resp: any) => {
       this.movies = resp;
       for (let x in this.movies) {
-        const isFavorited = this.determineIfFavorited(this.movies[x]);
-        this.movies[x].isFavorited = isFavorited;
+        this.movies[x].isFavorited = this.determineIfFavorited(this.movies[x]);
       }
       return this.movies;
     });
@@ -61,11 +60,7 @@ export class MovieCardComponent {
 
   determineIfFavorited(movie: any): boolean {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    if (user.FavoriteMovies.includes(movie._id)) {
-      return true;
-    } else {
-      return false;
-    }
+    return !!user.FavoriteMovies.includes(movie._id);
   }
 
   // This method toggles the favorite status of a movie
@@ -84,8 +79,8 @@ export class MovieCardComponent {
       console.error('Cannot add to favorites. Invalid movie object:', movie);
       return;
     }
-    this.fetchApiData.addToFavorites(movie._id).subscribe(
-      (response) => {
+    this.fetchApiData.addToFavorites(movie._id).subscribe({
+      next: (response) => {
         this.snackBar.open(`${movie.Title} added to favorites`, 'Close', {
           duration: 2000,
         });
@@ -93,12 +88,12 @@ export class MovieCardComponent {
         const movieIndex = this.movies.findIndex((m) => m._id === movie._id);
         this.movies[movieIndex].isFavorited = true;
       },
-      (error) => {
+      error: () => {
         this.snackBar.open('Something went wrong. Please try again.', 'OK', {
           duration: 2000,
         });
       }
-    );
+    });
   }
 
   // This method removes a movie from the user's list of favorites
@@ -110,8 +105,8 @@ export class MovieCardComponent {
       );
       return;
     }
-    this.fetchApiData.removeFromFavorites(movie._id).subscribe(
-      (response) => {
+    this.fetchApiData.removeFromFavorites(movie._id).subscribe({
+      next: (response) => {
         this.snackBar.open(`${movie.Title} removed from favorites`, 'Close', {
           duration: 2000,
         });
@@ -119,12 +114,12 @@ export class MovieCardComponent {
         const movieIndex = this.movies.findIndex((m) => m._id === movie._id);
         this.movies[movieIndex].isFavorited = false;
       },
-      (error) => {
+      error:() => {
         this.snackBar.open('Something went wrong. Please try again.', 'OK', {
           duration: 2000,
         });
       }
-    );
+    });
   }
 }
 
