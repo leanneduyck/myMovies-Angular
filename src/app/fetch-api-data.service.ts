@@ -1,149 +1,3 @@
-// import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
-// import {
-//   HttpClient,
-//   HttpHeaders,
-//   HttpErrorResponse,
-// } from '@angular/common/http';
-// import { isPlatformBrowser } from '@angular/common';
-// import { Observable, throwError } from 'rxjs';
-// import { catchError, map } from 'rxjs/operators';
-
-// // Declaring the API URL that will provide data for the client app
-// const apiUrl = 'https://my---movies-868565568c2a.herokuapp.com';
-
-// @Injectable({
-//   providedIn: 'root',
-// })
-// export class FetchApiDataService {
-//   apiUrl = 'https://my---movies-868565568c2a.herokuapp.com';
-
-//   constructor(
-//     private http: HttpClient,
-//     @Inject(PLATFORM_ID) private platformId: any
-//   ) {}
-
-//   // added this section to circumvent localStorage error
-//   private isBrowser(): boolean {
-//     return isPlatformBrowser(this.platformId);
-//   }
-
-//   private getToken(): string | null {
-//     return this.isBrowser() ? localStorage.getItem('token') : null;
-//   }
-
-//   private getUser(): any {
-//     return this.isBrowser()
-//       ? JSON.parse(localStorage.getItem('user') || '{}')
-//       : {};
-//   }
-
-//   public userRegistration(userDetails: any): Observable<any> {
-//     return this.http
-//       .post(`${this.apiUrl}/users/create`, userDetails, {
-//         headers: new HttpHeaders({
-//           'Content-Type': 'application/json',
-//           Authorization: 'Bearer ' + this.getToken(),
-//         }),
-//       })
-//       .pipe(
-//         map((response) => {
-//           console.log('Registration successful, response:', response);
-//           return response;
-//         }),
-//         catchError(this.handleError)
-//       );
-//   }
-
-//   public userLogin(userDetails: {
-//     Username: string;
-//     Password: string;
-//   }): Observable<any> {
-//     return this.http
-//       .post<any>(`${this.apiUrl}/login`, userDetails, {
-//         headers: new HttpHeaders({
-//           'Content-Type': 'application/json',
-//         }),
-//       })
-//       .pipe(catchError(this.handleError));
-//   }
-
-//   public getAllMovies(): Observable<any> {
-//     return this.http
-//       .get(`${this.apiUrl}/movies`, {
-//         headers: new HttpHeaders({
-//           Authorization: 'Bearer ' + this.getToken(),
-//         }),
-//       })
-//       .pipe(map(this.extractResponseData), catchError(this.handleError));
-//   }
-
-//   addToFavorites(movieId: string): Observable<any> {
-//     const user = this.getUser();
-//     return this.http
-//       .post(`${this.apiUrl}/users/${user.Username}/movies/${movieId}`, null, {
-//         headers: new HttpHeaders({
-//           'Content-Type': 'application/json',
-//           Authorization: 'Bearer ' + this.getToken(),
-//         }),
-//       })
-//       .pipe(
-//         catchError((error) => {
-//           console.error('Error:', error);
-//           return throwError('Error adding movie to Favorites!');
-//         })
-//       );
-//   }
-
-//   removeFromFavorites(movieId: string): Observable<any> {
-//     const user = this.getUser();
-//     return this.http
-//       .delete(`${apiUrl}/users/${user.Username}/movies/${movieId}`, {
-//         headers: new HttpHeaders({
-//           Authorization: 'Bearer ' + this.getToken(),
-//         }),
-//       })
-//       .pipe(catchError(this.handleError));
-//   }
-
-//   editUserProfile(userData: any): Observable<any> {
-//     return this.http
-//       .put(`${this.apiUrl}/users/${userData.Username}`, userData, {
-//         headers: new HttpHeaders({
-//           Authorization: 'Bearer ' + this.getToken(),
-//         }),
-//       })
-//       .pipe(catchError(this.handleError));
-//   }
-
-//   deleteUser(Username: string): Observable<any> {
-//     return this.http.delete(`${this.apiUrl}/users/${Username}`, {
-//       headers: new HttpHeaders({
-//         Authorization: 'Bearer ' + this.getToken(),
-//       }),
-//     });
-//   }
-
-//   private extractResponseData(res: any): any {
-//     return res || {};
-//   }
-
-//   private handleError(error: HttpErrorResponse): any {
-//     console.error('Error:', error);
-//     if (error.error instanceof ErrorEvent) {
-//       console.error('An error occurred:', error.error.message);
-//     } else {
-//       console.error(
-//         `Backend returned code ${error.status}, ` +
-//           `body was: ${JSON.stringify(error.error)}`
-//       );
-//     }
-//     return throwError('Something bad happened; please try again later.');
-//   }
-// }
-
-//
-// code below is not using <any>, but not working since API/documentation disaster
-//
 import { Injectable } from '@angular/core';
 import {
   HttpClient,
@@ -180,7 +34,10 @@ type LoginResponse = {
   user: User;
 };
 
-export type RegisterRequest = { Birthday: string; Email: string } & LoginRequest;
+export type RegisterRequest = {
+  Birthday: string;
+  Email: string;
+} & LoginRequest;
 
 export type Movie = {
   Genre: Genre;
@@ -193,7 +50,7 @@ export type Movie = {
   Image: string;
 };
 
-export type MovieWithFavorite = { isFavorited: boolean } & Movie
+export type MovieWithFavorite = { isFavorited: boolean } & Movie;
 
 type Director = {
   Name: string;
@@ -267,7 +124,6 @@ export class FetchApiDataService {
         catchError(this.handleError)
       );
   }
-
 
   /**
    * Retrieves all movies from the API.
@@ -347,7 +203,6 @@ export class FetchApiDataService {
     });
   }
 
-
   /**
    * Extracts the response data from the given object.
    *
@@ -374,7 +229,9 @@ export class FetchApiDataService {
           `body was: ${JSON.stringify(error.error)}`
       );
     }
-    const finalError = new Error('Something bad happened; please try again later.')
+    const finalError = new Error(
+      'Something bad happened; please try again later.'
+    );
     return throwError(() => finalError);
   }
 }
